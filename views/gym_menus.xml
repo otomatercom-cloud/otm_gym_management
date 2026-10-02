@@ -2,27 +2,27 @@
 <odoo>
   <menuitem id="menu_gym_root" name="Gym Town" sequence="40" groups="otm_gym_management.group_gym_reception,otm_gym_management.group_gym_trainer,otm_gym_management.group_gym_nutritionist,otm_gym_management.group_gym_assessor,otm_gym_management.group_gym_finance,otm_gym_management.group_gym_manager,otm_gym_management.group_gym_admin"/>
   <menuitem id="menu_gym_members" name="Members" parent="menu_gym_root" sequence="10" groups="otm_gym_management.group_gym_reception,otm_gym_management.group_gym_trainer,otm_gym_management.group_gym_nutritionist,otm_gym_management.group_gym_assessor,otm_gym_management.group_gym_finance,otm_gym_management.group_gym_manager,otm_gym_management.group_gym_admin"/>
-  <menuitem id="menu_gym_members" name="Members" parent="menu_gym_members" action="action_gym_member" sequence="10"/>
-  <menuitem id="menu_gym_memberships" name="Memberships" parent="menu_gym_members" action="action_gym_membership" sequence="11"/>
-  <menuitem id="menu_gym_plans" name="Plans" parent="menu_gym_members" action="action_gym_membership_plan" sequence="12"/>
+  <menuitem id="menu_gym_item_members" name="Members" parent="menu_gym_members" action="action_gym_member" sequence="10"/>
+  <menuitem id="menu_gym_item_memberships" name="Memberships" parent="menu_gym_members" action="action_gym_membership" sequence="11"/>
+  <menuitem id="menu_gym_item_plans" name="Plans" parent="menu_gym_members" action="action_gym_membership_plan" sequence="12"/>
   <menuitem id="menu_gym_attendance" name="Attendance" parent="menu_gym_root" sequence="20" groups="otm_gym_management.group_gym_reception,otm_gym_management.group_gym_trainer,otm_gym_management.group_gym_manager,otm_gym_management.group_gym_admin"/>
-  <menuitem id="menu_gym_attendance" name="Attendance" parent="menu_gym_attendance" action="action_gym_attendance" sequence="10"/>
-  <menuitem id="menu_gym_appointments" name="Appointments" parent="menu_gym_attendance" action="action_gym_appointment" sequence="11"/>
+  <menuitem id="menu_gym_item_attendance" name="Attendance" parent="menu_gym_attendance" action="action_gym_attendance" sequence="10"/>
+  <menuitem id="menu_gym_item_appointments" name="Appointments" parent="menu_gym_attendance" action="action_gym_appointment" sequence="11"/>
   <menuitem id="menu_gym_training" name="Training" parent="menu_gym_root" sequence="30" groups="otm_gym_management.group_gym_trainer,otm_gym_management.group_gym_manager,otm_gym_management.group_gym_admin"/>
-  <menuitem id="menu_gym_trainers" name="Trainers" parent="menu_gym_training" action="action_gym_trainer" sequence="10"/>
-  <menuitem id="menu_gym_exercises" name="Exercises" parent="menu_gym_training" action="action_gym_exercise" sequence="11"/>
-  <menuitem id="menu_gym_workouts" name="Workout Plans" parent="menu_gym_training" action="action_gym_workout_plan" sequence="12"/>
+  <menuitem id="menu_gym_item_trainers" name="Trainers" parent="menu_gym_training" action="action_gym_trainer" sequence="10"/>
+  <menuitem id="menu_gym_item_exercises" name="Exercises" parent="menu_gym_training" action="action_gym_exercise" sequence="11"/>
+  <menuitem id="menu_gym_item_workouts" name="Workout Plans" parent="menu_gym_training" action="action_gym_workout_plan" sequence="12"/>
   <menuitem id="menu_gym_nutrition" name="Nutrition" parent="menu_gym_root" sequence="40" groups="otm_gym_management.group_gym_nutritionist,otm_gym_management.group_gym_manager,otm_gym_management.group_gym_admin"/>
-  <menuitem id="menu_gym_foods" name="Food Master" parent="menu_gym_nutrition" action="action_gym_food_item" sequence="10"/>
-  <menuitem id="menu_gym_diets" name="Diet Plans" parent="menu_gym_nutrition" action="action_gym_diet_plan" sequence="11"/>
+  <menuitem id="menu_gym_item_foods" name="Food Master" parent="menu_gym_nutrition" action="action_gym_food_item" sequence="10"/>
+  <menuitem id="menu_gym_item_diets" name="Diet Plans" parent="menu_gym_nutrition" action="action_gym_diet_plan" sequence="11"/>
   <menuitem id="menu_gym_health" name="Health" parent="menu_gym_root" sequence="50" groups="otm_gym_management.group_gym_trainer,otm_gym_management.group_gym_nutritionist,otm_gym_management.group_gym_assessor,otm_gym_management.group_gym_manager,otm_gym_management.group_gym_admin"/>
-  <menuitem id="menu_gym_hprofiles" name="Health Profiles" parent="menu_gym_health" action="action_gym_health_profile" sequence="10"/>
-  <menuitem id="menu_gym_assessments" name="Assessments" parent="menu_gym_health" action="action_gym_assessment" sequence="11"/>
-  <menuitem id="menu_gym_progress" name="Progress Logs" parent="menu_gym_health" action="action_gym_progress" sequence="12"/>
+  <menuitem id="menu_gym_item_hprofiles" name="Health Profiles" parent="menu_gym_health" action="action_gym_health_profile" sequence="10"/>
+  <menuitem id="menu_gym_item_assessments" name="Assessments" parent="menu_gym_health" action="action_gym_assessment" sequence="11"/>
+  <menuitem id="menu_gym_item_progress" name="Progress Logs" parent="menu_gym_health" action="action_gym_progress" sequence="12"/>
   <menuitem id="menu_gym_finance" name="Finance" parent="menu_gym_root" sequence="60" groups="otm_gym_management.group_gym_finance,otm_gym_management.group_gym_manager,otm_gym_management.group_gym_admin"/>
-  <menuitem id="menu_gym_payments" name="Payments" parent="menu_gym_finance" action="action_gym_payment" sequence="10"/>
-  <menuitem id="menu_gym_receipts" name="Receipts" parent="menu_gym_finance" action="action_gym_payment_receipt" sequence="11"/>
+  <menuitem id="menu_gym_item_payments" name="Payments" parent="menu_gym_finance" action="action_gym_payment" sequence="10"/>
+  <menuitem id="menu_gym_item_receipts" name="Receipts" parent="menu_gym_finance" action="action_gym_payment_receipt" sequence="11"/>
   <menuitem id="menu_gym_config" name="Configuration" parent="menu_gym_root" sequence="90" groups="otm_gym_management.group_gym_manager,otm_gym_management.group_gym_admin"/>
-  <menuitem id="menu_gym_notifs" name="Notifications" parent="menu_gym_config" action="action_gym_notification" sequence="10"/>
-  <menuitem id="menu_gym_audit" name="Audit Trail" parent="menu_gym_config" action="action_gym_history" sequence="11"/>
+  <menuitem id="menu_gym_item_notifs" name="Notifications" parent="menu_gym_config" action="action_gym_notification" sequence="10"/>
+  <menuitem id="menu_gym_item_audit" name="Audit Trail" parent="menu_gym_config" action="action_gym_history" sequence="11"/>
 </odoo>
