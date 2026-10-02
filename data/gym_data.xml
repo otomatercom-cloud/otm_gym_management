@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+    <!-- Seed/config data only: every plan, exercise and food item is editable by the Gym Administrator. -->
+    <record id="plan_trial" model="otm.gym.membership.plan">
+      <field name="name">Trial</field><field name="plan_type">trial</field><field name="sequence">10</field>
+      <field name="duration">7</field><field name="duration_unit">days</field><field name="price">199</field>
+      <field name="joining_fee">0</field><field name="included_sessions">0</field>
+      <field name="freeze_allowed">0</field><field name="freeze_days">0</field>
+    </record>
+    <record id="plan_monthly" model="otm.gym.membership.plan">
+      <field name="name">Monthly</field><field name="plan_type">monthly</field><field name="sequence">20</field>
+      <field name="duration">1</field><field name="duration_unit">months</field><field name="price">1500</field>
+      <field name="joining_fee">500</field><field name="included_sessions">0</field>
+      <field name="freeze_allowed">1</field><field name="freeze_days">7</field>
+    </record>
+    <record id="plan_quarterly" model="otm.gym.membership.plan">
+      <field name="name">Quarterly</field><field name="plan_type">quarterly</field><field name="sequence">30</field>
+      <field name="duration">3</field><field name="duration_unit">months</field><field name="price">4000</field>
+      <field name="joining_fee">500</field><field name="included_sessions">0</field>
+      <field name="freeze_allowed">1</field><field name="freeze_days">15</field>
+    </record>
+    <record id="plan_half_yearly" model="otm.gym.membership.plan">
+      <field name="name">Half Yearly</field><field name="plan_type">half_yearly</field><field name="sequence">40</field>
+      <field name="duration">6</field><field name="duration_unit">months</field><field name="price">7000</field>
+      <field name="joining_fee">500</field><field name="included_sessions">0</field>
+      <field name="freeze_allowed">1</field><field name="freeze_days">30</field>
+    </record>
+    <record id="plan_yearly" model="otm.gym.membership.plan">
+      <field name="name">Yearly</field><field name="plan_type">yearly</field><field name="sequence">50</field>
+      <field name="duration">12</field><field name="duration_unit">months</field><field name="price">12000</field>
+      <field name="joining_fee">500</field><field name="included_sessions">0</field>
+      <field name="freeze_allowed">1</field><field name="freeze_days">45</field>
+    </record>
+    <record id="plan_personal_training" model="otm.gym.membership.plan">
+      <field name="name">Personal Training</field><field name="plan_type">personal_training</field><field name="sequence">60</field>
+      <field name="duration">1</field><field name="duration_unit">months</field><field name="price">6000</field>
+      <field name="joining_fee">0</field><field name="included_sessions">12</field>
+      <field name="freeze_allowed">0</field><field name="freeze_days">0</field>
+    </record>
+    <record id="plan_class_package" model="otm.gym.membership.plan">
+      <field name="name">Class Package</field><field name="plan_type">class_package</field><field name="sequence">70</field>
+      <field name="duration">1</field><field name="duration_unit">months</field><field name="price">2500</field>
+      <field name="joining_fee">0</field><field name="included_sessions">10</field>
+      <field name="freeze_allowed">0</field><field name="freeze_days">0</field>
+    </record>
+    <record id="plan_custom" model="otm.gym.membership.plan">
+      <field name="name">Custom</field><field name="plan_type">custom</field><field name="sequence">80</field>
+      <field name="duration">1</field><field name="duration_unit">months</field><field name="price">0</field>
+      <field name="joining_fee">0</field><field name="included_sessions">0</field>
+      <field name="freeze_allowed">0</field><field name="freeze_days">0</field>
+    </record>
+    <record id="exercise_1" model="otm.gym.exercise">
+      <field name="name">Barbell Bench Press</field><field name="muscle_group">chest</field><field name="equipment">Barbell</field><field name="difficulty">intermediate</field>
+    </record>
+    <record id="exercise_2" model="otm.gym.exercise">
+      <field name="name">Incline Dumbbell Press</field><field name="muscle_group">chest</field><field name="equipment">Dumbbell</field><field name="difficulty">intermediate</field>
+    </record>
+    <record id="exercise_3" model="otm.gym.exercise">
+      <field name="name">Tricep Pushdown</field><field name="muscle_group">triceps</field><field name="equipment">Cable</field><field name="difficulty">beginner</field>
+    </record>
+    <record id="exercise_4" model="otm.gym.exercise">
+      <field name="name">Lat Pulldown</field><field name="muscle_group">back</field><field name="equipment">Machine</field><field name="difficulty">beginner</field>
+    </record>
+    <record id="exercise_5" model="otm.gym.exercise">
+      <field name="name">Barbell Row</field><field name="muscle_group">back</field><field name="equipment">Barbell</field><field name="difficulty">intermediate</field>
+    </record>
+    <record id="exercise_6" model="otm.gym.exercise">
+      <field name="name">Overhead Press</field><field name="muscle_group">shoulders</field><field name="equipment">Barbell</field><field name="difficulty">intermediate</field>
+    </record>
+    <record id="exercise_7" model="otm.gym.exercise">
+      <field name="name">Lateral Raise</field><field name="muscle_group">shoulders</field><field name="equipment">Dumbbell</field><field name="difficulty">beginner</field>
+    </record>
+    <record id="exercise_8" model="otm.gym.exercise">
+      <field name="name">Barbell Curl</field><field name="muscle_group">biceps</field><field name="equipment">Barbell</field><field name="difficulty">beginner</field>
+    </record>
+    <record id="exercise_9" model="otm.gym.exercise">
+      <field name="name">Back Squat</field><field name="muscle_group">quads</field><field name="equipment">Barbell</field><field name="difficulty">intermediate</field>
+    </record>
+    <record id="exercise_10" model="otm.gym.exercise">
+      <field name="name">Romanian Deadlift</field><field name="muscle_group">hamstrings</field><field name="equipment">Barbell</field><field name="difficulty">intermediate</field>
+    </record>
+    <record id="exercise_11" model="otm.gym.exercise">
+      <field name="name">Hip Thrust</field><field name="muscle_group">glutes</field><field name="equipment">Barbell</field><field name="difficulty">intermediate</field>
+    </record>
+    <record id="exercise_12" model="otm.gym.exercise">
+      <field name="name">Plank</field><field name="muscle_group">core</field><field name="equipment">Bodyweight</field><field name="difficulty">beginner</field>
+    </record>
+    <record id="exercise_13" model="otm.gym.exercise">
+      <field name="name">Treadmill Run</field><field name="muscle_group">cardio</field><field name="equipment">Treadmill</field><field name="difficulty">beginner</field>
+    </record>
+    <record id="exercise_14" model="otm.gym.exercise">
+      <field name="name">Deadlift</field><field name="muscle_group">full_body</field><field name="equipment">Barbell</field><field name="difficulty">advanced</field>
+    </record>
+    <record id="exercise_15" model="otm.gym.exercise">
+      <field name="name">Hamstring Stretch</field><field name="muscle_group">mobility</field><field name="equipment">Bodyweight</field><field name="difficulty">beginner</field>
+    </record>
+    <record id="food_1" model="otm.gym.food.item">
+      <field name="name">Rice (cooked)</field><field name="category">grains</field><field name="calories">130</field><field name="protein">2.7</field>
+      <field name="carbs">28</field><field name="fat">0.3</field><field name="serving_size">100</field><field name="unit">g</field><field name="vegetarian">True</field>
+    </record>
+    <record id="food_2" model="otm.gym.food.item">
+      <field name="name">Chapati</field><field name="category">grains</field><field name="calories">120</field><field name="protein">3.5</field>
+      <field name="carbs">20</field><field name="fat">3</field><field name="serving_size">1</field><field name="unit">piece</field><field name="vegetarian">True</field>
+    </record>
+    <record id="food_3" model="otm.gym.food.item">
+      <field name="name">Oats</field><field name="category">grains</field><field name="calories">389</field><field name="protein">17</field>
+      <field name="carbs">66</field><field name="fat">7</field><field name="serving_size">100</field><field name="unit">g</field><field name="vegetarian">True</field>
+    </record>
+    <record id="food_4" model="otm.gym.food.item">
+      <field name="name">Egg (whole)</field><field name="category">protein</field><field name="calories">78</field><field name="protein">6.3</field>
+      <field name="carbs">0.6</field><field name="fat">5.3</field><field name="serving_size">1</field><field name="unit">piece</field><field name="vegetarian">False</field>
+    </record>
+    <record id="food_5" model="otm.gym.food.item">
+      <field name="name">Chicken Breast (cooked)</field><field name="category">protein</field><field name="calories">165</field><field name="protein">31</field>
+      <field name="carbs">0</field><field name="fat">3.6</field><field name="serving_size">100</field><field name="unit">g</field><field name="vegetarian">False</field>
+    </record>
+    <record id="food_6" model="otm.gym.food.item">
+      <field name="name">Paneer</field><field name="category">dairy</field><field name="calories">265</field><field name="protein">18</field>
+      <field name="carbs">1.2</field><field name="fat">20</field><field name="serving_size">100</field><field name="unit">g</field><field name="vegetarian">True</field>
+    </record>
+    <record id="food_7" model="otm.gym.food.item">
+      <field name="name">Milk (toned)</field><field name="category">dairy</field><field name="calories">60</field><field name="protein">3.1</field>
+      <field name="carbs">4.8</field><field name="fat">3</field><field name="serving_size">100</field><field name="unit">ml</field><field name="vegetarian">True</field>
+    </record>
+    <record id="food_8" model="otm.gym.food.item">
+      <field name="name">Curd</field><field name="category">dairy</field><field name="calories">61</field><field name="protein">3.5</field>
+      <field name="carbs">4.7</field><field name="fat">3.3</field><field name="serving_size">100</field><field name="unit">g</field><field name="vegetarian">True</field>
+    </record>
+    <record id="food_9" model="otm.gym.food.item">
+      <field name="name">Dal (cooked)</field><field name="category">protein</field><field name="calories">116</field><field name="protein">9</field>
+      <field name="carbs">20</field><field name="fat">0.4</field><field name="serving_size">100</field><field name="unit">g</field><field name="vegetarian">True</field>
+    </record>
+    <record id="food_10" model="otm.gym.food.item">
+      <field name="name">Banana</field><field name="category">fruits</field><field name="calories">89</field><field name="protein">1.1</field>
+      <field name="carbs">23</field><field name="fat">0.3</field><field name="serving_size">1</field><field name="unit">piece</field><field name="vegetarian">True</field>
+    </record>
+    <record id="food_11" model="otm.gym.food.item">
+      <field name="name">Apple</field><field name="category">fruits</field><field name="calories">52</field><field name="protein">0.3</field>
+      <field name="carbs">14</field><field name="fat">0.2</field><field name="serving_size">1</field><field name="unit">piece</field><field name="vegetarian">True</field>
+    </record>
+    <record id="food_12" model="otm.gym.food.item">
+      <field name="name">Almonds</field><field name="category">fats</field><field name="calories">579</field><field name="protein">21</field>
+      <field name="carbs">22</field><field name="fat">50</field><field name="serving_size">100</field><field name="unit">g</field><field name="vegetarian">True</field>
+    </record>
+    <record id="food_13" model="otm.gym.food.item">
+      <field name="name">Peanut Butter</field><field name="category">fats</field><field name="calories">588</field><field name="protein">25</field>
+      <field name="carbs">20</field><field name="fat">50</field><field name="serving_size">100</field><field name="unit">g</field><field name="vegetarian">True</field>
+    </record>
+    <record id="food_14" model="otm.gym.food.item">
+      <field name="name">Whey Protein</field><field name="category">supplements</field><field name="calories">120</field><field name="protein">24</field>
+      <field name="carbs">3</field><field name="fat">1.5</field><field name="serving_size">1</field><field name="unit">scoop</field><field name="vegetarian">True</field>
+    </record>
+    <record id="food_15" model="otm.gym.food.item">
+      <field name="name">Mixed Vegetables (cooked)</field><field name="category">vegetables</field><field name="calories">65</field><field name="protein">2.5</field>
+      <field name="carbs">13</field><field name="fat">0.4</field><field name="serving_size">100</field><field name="unit">g</field><field name="vegetarian">True</field>
+    </record>
+    <record id="param_reminder_days" model="ir.config_parameter">
+      <field name="key">otm_gym.reminder_days</field><field name="value">30,15,7,3,1</field>
+    </record>
+    <record id="param_assessment_interval_days" model="ir.config_parameter">
+      <field name="key">otm_gym.assessment_interval_days</field><field name="value">30</field>
+    </record>
+    <record id="param_long_absence_days" model="ir.config_parameter">
+      <field name="key">otm_gym.long_absence_days</field><field name="value">14</field>
+    </record>
+  </data>
+</odoo>

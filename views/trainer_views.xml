@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gym_trainer_form" model="ir.ui.view">
+      <field name="name">otm.gym.trainer.form</field>
+      <field name="model">otm.gym.trainer</field>
+      <field name="arch" type="xml">
+        <form string="Trainer">
+          <header>
+        
+          </header>
+          <sheet>
+            <field name="image_128" widget="image" class="oe_avatar"/>
+            <div class="oe_title"><h1><field name="name" placeholder="Trainer name"/></h1></div>
+            <group name="main_cols">
+            <group name="person">
+              <field name="name"/>
+              <field name="staff_role"/>
+              <field name="employee_id"/>
+              <field name="user_id"/>
+              <field name="status"/>
+            </group>
+            <group name="profile">
+              <field name="specialization"/>
+              <field name="certification"/>
+              <field name="experience"/>
+              <field name="working_hours"/>
+              <field name="phone"/>
+              <field name="email"/>
+              <field name="member_count"/>
+            </group>
+          </group>
+            <notebook name="gym_notebook">
+            <page name="members" string="Assigned members">
+              <field name="member_ids" readonly="1"><list><field name="member_code"/><field name="name"/><field name="status"/><field name="membership_expiry"/></list></field>
+            </page>
+          </notebook>
+          </sheet>
+          <chatter/>
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_trainer_list" model="ir.ui.view">
+      <field name="name">otm.gym.trainer.list</field>
+      <field name="model">otm.gym.trainer</field>
+      <field name="arch" type="xml">
+        <list string="Trainers" >
+        <field name="name"/>
+        <field name="staff_role"/>
+        <field name="specialization"/>
+        <field name="phone"/>
+        <field name="member_count"/>
+        <field name="status"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_trainer_search" model="ir.ui.view">
+      <field name="name">otm.gym.trainer.search</field>
+      <field name="model">otm.gym.trainer</field>
+      <field name="arch" type="xml">
+        <search string="Trainers">
+        <field name="name"/>
+        <field name="specialization"/>
+        <field name="phone"/>
+        <filter name="active" string="Active" domain="[('status','=','active')]"/>
+        <filter name="leave" string="On leave" domain="[('status','=','on_leave')]"/>
+        <separator/>
+        <group>
+          <filter name="group_staff_role" string="Role" context="{'group_by': 'staff_role'}"/>
+          <filter name="group_status" string="Status" context="{'group_by': 'status'}"/>
+        </group>
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_trainer" model="ir.actions.act_window">
+      <field name="name">Trainers and Staff</field>
+      <field name="res_model">otm.gym.trainer</field>
+      <field name="view_mode">list,form</field>
+    </record>
+</odoo>

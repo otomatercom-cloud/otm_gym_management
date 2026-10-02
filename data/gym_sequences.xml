@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="seq_gym_member" model="ir.sequence">
+            <field name="name">Gym Member ID</field>
+            <field name="code">otm.gym.member</field>
+            <field name="prefix">GT-</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="seq_gym_membership" model="ir.sequence">
+            <field name="name">Gym Membership</field>
+            <field name="code">otm.gym.membership</field>
+            <field name="prefix">MS/%(year)s/</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="seq_gym_payment" model="ir.sequence">
+            <field name="name">Gym Payment Charge</field>
+            <field name="code">otm.gym.payment</field>
+            <field name="prefix">PAY/%(year)s/</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="seq_gym_appointment" model="ir.sequence">
+            <field name="name">Gym Appointment</field>
+            <field name="code">otm.gym.appointment</field>
+            <field name="prefix">APT/%(year)s/</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="seq_gym_assessment" model="ir.sequence">
+            <field name="name">Gym Assessment</field>
+            <field name="code">otm.gym.assessment</field>
+            <field name="prefix">ASM/%(year)s/</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="seq_gym_workout" model="ir.sequence">
+            <field name="name">Gym Workout Plan</field>
+            <field name="code">otm.gym.workout.plan</field>
+            <field name="prefix">WP/%(year)s/</field>
+            <field name="padding">5</field>
+        </record>
+        <record id="seq_gym_diet" model="ir.sequence">
+            <field name="name">Gym Diet Plan</field>
+            <field name="code">otm.gym.diet.plan</field>
+            <field name="prefix">DP/%(year)s/</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+</odoo>

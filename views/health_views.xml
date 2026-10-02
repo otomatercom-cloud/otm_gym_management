@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gym_health_profile_form" model="ir.ui.view">
+      <field name="name">otm.gym.health.profile.form</field>
+      <field name="model">otm.gym.health.profile</field>
+      <field name="arch" type="xml">
+        <form string="Health Profile">
+          <header>
+        
+          </header>
+          <sheet>
+            
+            
+            <group name="main_cols">
+            <group name="vitals">
+              <field name="member_id"/>
+              <field name="height"/>
+              <field name="weight"/>
+              <field name="bmi"/>
+              <field name="bmi_category"/>
+              <field name="body_fat"/>
+              <field name="muscle_mass"/>
+              <field name="blood_pressure"/>
+              <field name="fitness_goal"/>
+            </group>
+            <group name="medical">
+              <field name="allergies"/>
+              <field name="injuries"/>
+              <field name="medical_restrictions"/>
+              <field name="fitness_limitations"/>
+              <field name="emergency_information"/>
+              <field name="notes"/>
+            </group>
+          </group>
+            
+          </sheet>
+          
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_health_profile_list" model="ir.ui.view">
+      <field name="name">otm.gym.health.profile.list</field>
+      <field name="model">otm.gym.health.profile</field>
+      <field name="arch" type="xml">
+        <list string="Health Profiles" >
+        <field name="member_id"/>
+        <field name="height"/>
+        <field name="weight"/>
+        <field name="bmi"/>
+        <field name="body_fat"/>
+        <field name="blood_pressure"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_health_profile_search" model="ir.ui.view">
+      <field name="name">otm.gym.health.profile.search</field>
+      <field name="model">otm.gym.health.profile</field>
+      <field name="arch" type="xml">
+        <search string="Health Profiles">
+        <field name="member_id"/>
+        
+        
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_health_profile" model="ir.actions.act_window">
+      <field name="name">Health Profiles</field>
+      <field name="res_model">otm.gym.health.profile</field>
+      <field name="view_mode">list,form</field>
+    </record>
+    <record id="view_gym_assessment_form" model="ir.ui.view">
+      <field name="name">otm.gym.assessment.form</field>
+      <field name="model">otm.gym.assessment</field>
+      <field name="arch" type="xml">
+        <form string="Assessment">
+          <header>
+        <button name="action_complete" type="object" string="Complete" invisible="state not in ['draft']" class="oe_highlight"/>
+        <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+          </header>
+          <sheet>
+            
+            <div class="oe_title"><h1><field name="name"/></h1></div>
+            <group name="main_cols">
+            <group name="head">
+              <field name="name"/>
+              <field name="member_id"/>
+              <field name="date"/>
+              <field name="assessor_id"/>
+              <field name="appointment_id"/>
+            </group>
+            <group name="body">
+              <field name="height"/>
+              <field name="weight"/>
+              <field name="bmi"/>
+              <field name="body_fat"/>
+              <field name="muscle_mass"/>
+              <field name="chest"/>
+              <field name="waist"/>
+              <field name="hip"/>
+              <field name="arm"/>
+              <field name="thigh"/>
+              <field name="neck"/>
+            </group>
+          </group>
+            <notebook name="gym_notebook">
+            <page name="tests_page" string="Fitness tests">
+              <field name="line_ids"><list editable="bottom"><field name="sequence"/><field name="test_name"/><field name="result"/><field name="unit"/><field name="notes"/></list></field>
+            </page>
+            <page name="rec_page" string="Notes and recommendations">
+              <group name="rec_group"><field name="notes"/><field name="recommendations"/></group>
+            </page>
+          </notebook>
+          </sheet>
+          <chatter/>
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_assessment_list" model="ir.ui.view">
+      <field name="name">otm.gym.assessment.list</field>
+      <field name="model">otm.gym.assessment</field>
+      <field name="arch" type="xml">
+        <list string="Assessments" >
+        <field name="name"/>
+        <field name="member_id"/>
+        <field name="date"/>
+        <field name="weight"/>
+        <field name="bmi"/>
+        <field name="body_fat"/>
+        <field name="waist"/>
+        <field name="assessor_id"/>
+        <field name="state"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_assessment_search" model="ir.ui.view">
+      <field name="name">otm.gym.assessment.search</field>
+      <field name="model">otm.gym.assessment</field>
+      <field name="arch" type="xml">
+        <search string="Assessments">
+        <field name="name"/>
+        <field name="member_id"/>
+        <field name="assessor_id"/>
+        <filter name="done_f" string="Completed" domain="[('state','=','done')]"/>
+        <filter name="draft_f" string="Draft" domain="[('state','=','draft')]"/>
+        <separator/>
+        <group>
+          <filter name="group_member_id" string="Member" context="{'group_by': 'member_id'}"/>
+          <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+        </group>
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_assessment" model="ir.actions.act_window">
+      <field name="name">Assessments</field>
+      <field name="res_model">otm.gym.assessment</field>
+      <field name="view_mode">list,form</field>
+    </record>
+    <record id="view_gym_progress_form" model="ir.ui.view">
+      <field name="name">otm.gym.progress.form</field>
+      <field name="model">otm.gym.progress</field>
+      <field name="arch" type="xml">
+        <form string="Progress">
+          <header>
+        
+          </header>
+          <sheet>
+            
+            
+            <group name="main_cols">
+            <group name="who">
+              <field name="member_id"/>
+              <field name="date"/>
+              <field name="source"/>
+              <field name="notes"/>
+            </group>
+            <group name="body">
+              <field name="height"/>
+              <field name="weight"/>
+              <field name="bmi"/>
+              <field name="body_fat"/>
+              <field name="muscle_mass"/>
+              <field name="chest"/>
+              <field name="waist"/>
+              <field name="hip"/>
+              <field name="arm"/>
+              <field name="thigh"/>
+            </group>
+          </group>
+            
+          </sheet>
+          
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_progress_list" model="ir.ui.view">
+      <field name="name">otm.gym.progress.list</field>
+      <field name="model">otm.gym.progress</field>
+      <field name="arch" type="xml">
+        <list string="Progress logs" >
+        <field name="date"/>
+        <field name="member_id"/>
+        <field name="weight"/>
+        <field name="bmi"/>
+        <field name="body_fat"/>
+        <field name="waist"/>
+        <field name="source"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_progress_search" model="ir.ui.view">
+      <field name="name">otm.gym.progress.search</field>
+      <field name="model">otm.gym.progress</field>
+      <field name="arch" type="xml">
+        <search string="Progress">
+        <field name="member_id"/>
+        
+        
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_progress" model="ir.actions.act_window">
+      <field name="name">Progress Logs</field>
+      <field name="res_model">otm.gym.progress</field>
+      <field name="view_mode">list,form</field>
+    </record>
+</odoo>

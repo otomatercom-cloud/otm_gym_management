@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gym_membership_plan_form" model="ir.ui.view">
+      <field name="name">otm.gym.membership.plan.form</field>
+      <field name="model">otm.gym.membership.plan</field>
+      <field name="arch" type="xml">
+        <form string="Membership plan">
+          <header>
+        
+          </header>
+          <sheet>
+            
+            
+            <group name="main_cols">
+            <group name="info">
+              <field name="name"/>
+              <field name="plan_type"/>
+              <field name="sequence"/>
+              <field name="active"/>
+            </group>
+            <group name="term">
+              <field name="duration"/>
+              <field name="duration_unit"/>
+              <field name="price"/>
+              <field name="joining_fee"/>
+              <field name="included_sessions"/>
+              <field name="freeze_allowed"/>
+              <field name="freeze_days"/>
+              <field name="currency_id"/>
+            </group>
+          </group>
+            <notebook name="gym_notebook">
+            <page name="desc" string="Description">
+              <field name="description"/>
+            </page>
+          </notebook>
+          </sheet>
+          
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_membership_plan_list" model="ir.ui.view">
+      <field name="name">otm.gym.membership.plan.list</field>
+      <field name="model">otm.gym.membership.plan</field>
+      <field name="arch" type="xml">
+        <list string="Membership plans" >
+        <field name="sequence"/>
+        <field name="name"/>
+        <field name="plan_type"/>
+        <field name="duration"/>
+        <field name="duration_unit"/>
+        <field name="price"/>
+        <field name="joining_fee"/>
+        <field name="freeze_allowed"/>
+        <field name="membership_count"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_membership_plan_search" model="ir.ui.view">
+      <field name="name">otm.gym.membership.plan.search</field>
+      <field name="model">otm.gym.membership.plan</field>
+      <field name="arch" type="xml">
+        <search string="Plans">
+        <field name="name"/>
+        
+        
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_membership_plan" model="ir.actions.act_window">
+      <field name="name">Membership Plans</field>
+      <field name="res_model">otm.gym.membership.plan</field>
+      <field name="view_mode">list,form</field>
+    </record>
+    <record id="view_gym_notification_form" model="ir.ui.view">
+      <field name="name">otm.gym.notification.form</field>
+      <field name="model">otm.gym.notification</field>
+      <field name="arch" type="xml">
+        <form string="Notification">
+          <header>
+        
+          </header>
+          <sheet>
+            
+            
+            <group name="main_cols">
+            <group name="a">
+              <field name="ntype"/>
+              <field name="title"/>
+              <field name="body"/>
+              <field name="date"/>
+            </group>
+            <group name="b">
+              <field name="member_id"/>
+              <field name="recipient_groups"/>
+              <field name="user_ids"/>
+              <field name="res_model"/>
+              <field name="res_id"/>
+              <field name="dedupe_key"/>
+            </group>
+          </group>
+            
+          </sheet>
+          
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_notification_list" model="ir.ui.view">
+      <field name="name">otm.gym.notification.list</field>
+      <field name="model">otm.gym.notification</field>
+      <field name="arch" type="xml">
+        <list string="Notifications" >
+        <field name="date"/>
+        <field name="ntype"/>
+        <field name="title"/>
+        <field name="member_id"/>
+        <field name="recipient_groups"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_notification_search" model="ir.ui.view">
+      <field name="name">otm.gym.notification.search</field>
+      <field name="model">otm.gym.notification</field>
+      <field name="arch" type="xml">
+        <search string="Notifications">
+        <field name="title"/>
+        <field name="member_id"/>
+        
+        <separator/>
+        <group>
+          <filter name="group_ntype" string="Type" context="{'group_by': 'ntype'}"/>
+        </group>
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_notification" model="ir.actions.act_window">
+      <field name="name">Notifications</field>
+      <field name="res_model">otm.gym.notification</field>
+      <field name="view_mode">list,form</field>
+    </record>
+    <record id="view_gym_history_form" model="ir.ui.view">
+      <field name="name">otm.gym.history.form</field>
+      <field name="model">otm.gym.history</field>
+      <field name="arch" type="xml">
+        <form string="Audit entry">
+          <header>
+        
+          </header>
+          <sheet>
+            
+            
+            <group name="main_cols">
+            <group name="a">
+              <field name="record_name"/>
+              <field name="res_model"/>
+              <field name="res_id"/>
+              <field name="member_id"/>
+            </group>
+            <group name="b">
+              <field name="action"/>
+              <field name="prev_state"/>
+              <field name="new_state"/>
+              <field name="user_id"/>
+              <field name="date"/>
+              <field name="reason"/>
+            </group>
+          </group>
+            
+          </sheet>
+          
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_history_list" model="ir.ui.view">
+      <field name="name">otm.gym.history.list</field>
+      <field name="model">otm.gym.history</field>
+      <field name="arch" type="xml">
+        <list string="Audit trail" default_order="id desc" >
+        <field name="date"/>
+        <field name="record_name"/>
+        <field name="res_model"/>
+        <field name="action"/>
+        <field name="prev_state"/>
+        <field name="new_state"/>
+        <field name="user_id"/>
+        <field name="reason"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_history_search" model="ir.ui.view">
+      <field name="name">otm.gym.history.search</field>
+      <field name="model">otm.gym.history</field>
+      <field name="arch" type="xml">
+        <search string="Audit trail">
+        <field name="record_name"/>
+        <field name="member_id"/>
+        <field name="user_id"/>
+        <field name="action"/>
+        <filter name="sens" string="Health related" domain="[('sensitive','=',True)]"/>
+        <separator/>
+        <group>
+          <filter name="group_res_model" string="Model" context="{'group_by': 'res_model'}"/>
+          <filter name="group_user_id" string="User" context="{'group_by': 'user_id'}"/>
+          <filter name="group_action" string="Action" context="{'group_by': 'action'}"/>
+        </group>
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_history" model="ir.actions.act_window">
+      <field name="name">Audit Trail</field>
+      <field name="res_model">otm.gym.history</field>
+      <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gym_exercise_form" model="ir.ui.view">
+      <field name="name">otm.gym.exercise.form</field>
+      <field name="model">otm.gym.exercise</field>
+      <field name="arch" type="xml">
+        <form string="Exercise">
+          <header>
+        
+          </header>
+          <sheet>
+            
+            
+            <group name="main_cols">
+            <group name="info">
+              <field name="name"/>
+              <field name="muscle_group"/>
+              <field name="equipment"/>
+              <field name="difficulty"/>
+              <field name="video"/>
+              <field name="active"/>
+            </group>
+            <group name="notes">
+              <field name="safety_notes"/>
+            </group>
+          </group>
+            <notebook name="gym_notebook">
+            <page name="instr" string="Instructions">
+              <field name="instructions"/>
+            </page>
+            <page name="img" string="Image">
+              <field name="image" widget="image"/>
+            </page>
+          </notebook>
+          </sheet>
+          
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_exercise_list" model="ir.ui.view">
+      <field name="name">otm.gym.exercise.list</field>
+      <field name="model">otm.gym.exercise</field>
+      <field name="arch" type="xml">
+        <list string="Exercises" >
+        <field name="name"/>
+        <field name="muscle_group"/>
+        <field name="equipment"/>
+        <field name="difficulty"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_exercise_search" model="ir.ui.view">
+      <field name="name">otm.gym.exercise.search</field>
+      <field name="model">otm.gym.exercise</field>
+      <field name="arch" type="xml">
+        <search string="Exercises">
+        <field name="name"/>
+        <field name="equipment"/>
+        <filter name="beg" string="Beginner" domain="[('difficulty','=','beginner')]"/>
+        <separator/>
+        <group>
+          <filter name="group_muscle_group" string="Muscle group" context="{'group_by': 'muscle_group'}"/>
+          <filter name="group_difficulty" string="Difficulty" context="{'group_by': 'difficulty'}"/>
+        </group>
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_exercise" model="ir.actions.act_window">
+      <field name="name">Exercises</field>
+      <field name="res_model">otm.gym.exercise</field>
+      <field name="view_mode">list,form</field>
+    </record>
+    <record id="view_gym_workout_plan_form" model="ir.ui.view">
+      <field name="name">otm.gym.workout.plan.form</field>
+      <field name="model">otm.gym.workout.plan</field>
+      <field name="arch" type="xml">
+        <form string="Workout Plan">
+          <header>
+        <button name="action_submit" type="object" string="Submit" invisible="state not in ['draft']" class="oe_highlight"/>
+        <button name="action_approve" type="object" string="Approve" invisible="state not in ['review']" class="oe_highlight"/>
+        <button name="%(action_gym_reason_wizard)d" type="action" string="Reject" invisible="state not in ['review']" context="{'default_method': 'action_reject', 'default_res_model': 'otm.gym.workout.plan', 'default_res_id': id}"/>
+        <button name="action_activate" type="object" string="Activate" invisible="state not in ['approved']" class="oe_highlight"/>
+        <button name="action_complete" type="object" string="Complete" invisible="state not in ['active']" class="oe_highlight"/>
+        <button name="action_archive" type="object" string="Archive" invisible="state not in ['completed']"/>
+        <button name="action_new_version" type="object" string="New version" invisible="state not in ['approved','active','completed','archived']"/>
+        <field name="state" widget="statusbar" statusbar_visible="draft,review,approved,active,completed,archived"/>
+          </header>
+          <sheet>
+            
+            <div class="oe_title"><h1><field name="name"/></h1></div>
+            <group name="main_cols">
+            <group name="who">
+              <field name="name"/>
+              <field name="member_id"/>
+              <field name="trainer_id"/>
+              <field name="goal"/>
+            </group>
+            <group name="when">
+              <field name="start_date"/>
+              <field name="end_date"/>
+              <field name="version"/>
+              <field name="parent_id"/>
+            </group>
+          </group>
+            <notebook name="gym_notebook">
+            <page name="lines_page" string="Exercises">
+              <field name="line_ids"><list editable="bottom"><field name="day"/><field name="day_title"/><field name="sequence"/><field name="exercise_id"/><field name="sets"/><field name="reps"/><field name="weight"/><field name="duration"/><field name="rest"/><field name="notes"/></list></field>
+            </page>
+            <page name="notes_page" string="Notes">
+              <field name="notes"/>
+            </page>
+          </notebook>
+          </sheet>
+          <chatter/>
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_workout_plan_list" model="ir.ui.view">
+      <field name="name">otm.gym.workout.plan.list</field>
+      <field name="model">otm.gym.workout.plan</field>
+      <field name="arch" type="xml">
+        <list string="Workout Plans" decoration-success="state == 'active'" decoration-muted="state == 'archived'">
+        <field name="name"/>
+        <field name="member_id"/>
+        <field name="trainer_id"/>
+        <field name="version"/>
+        <field name="start_date"/>
+        <field name="end_date"/>
+        <field name="state"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_workout_plan_search" model="ir.ui.view">
+      <field name="name">otm.gym.workout.plan.search</field>
+      <field name="model">otm.gym.workout.plan</field>
+      <field name="arch" type="xml">
+        <search string="Workout Plans">
+        <field name="name"/>
+        <field name="member_id"/>
+        <field name="trainer_id"/>
+        <filter name="active_f" string="Active" domain="[('state','=','active')]"/>
+        <filter name="review_f" string="In review" domain="[('state','=','review')]"/>
+        <separator/>
+        <group>
+          <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+          <filter name="group_trainer_id" string="Trainer" context="{'group_by': 'trainer_id'}"/>
+        </group>
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_workout_plan" model="ir.actions.act_window">
+      <field name="name">Workout Plans</field>
+      <field name="res_model">otm.gym.workout.plan</field>
+      <field name="view_mode">list,form</field>
+    </record>
+    <record id="view_gym_food_item_form" model="ir.ui.view">
+      <field name="name">otm.gym.food.item.form</field>
+      <field name="model">otm.gym.food.item</field>
+      <field name="arch" type="xml">
+        <form string="Food item">
+          <header>
+        
+          </header>
+          <sheet>
+            
+            
+            <group name="main_cols">
+            <group name="info">
+              <field name="name"/>
+              <field name="category"/>
+              <field name="vegetarian"/>
+              <field name="active"/>
+            </group>
+            <group name="nutrition">
+              <field name="serving_size"/>
+              <field name="unit"/>
+              <field name="calories"/>
+              <field name="protein"/>
+              <field name="carbs"/>
+              <field name="fat"/>
+            </group>
+          </group>
+            
+          </sheet>
+          
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_food_item_list" model="ir.ui.view">
+      <field name="name">otm.gym.food.item.list</field>
+      <field name="model">otm.gym.food.item</field>
+      <field name="arch" type="xml">
+        <list string="Food items" >
+        <field name="name"/>
+        <field name="category"/>
+        <field name="serving_size"/>
+        <field name="unit"/>
+        <field name="calories"/>
+        <field name="protein"/>
+        <field name="carbs"/>
+        <field name="fat"/>
+        <field name="vegetarian"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_food_item_search" model="ir.ui.view">
+      <field name="name">otm.gym.food.item.search</field>
+      <field name="model">otm.gym.food.item</field>
+      <field name="arch" type="xml">
+        <search string="Food items">
+        <field name="name"/>
+        <filter name="veg" string="Vegetarian" domain="[('vegetarian','=',True)]"/>
+        <separator/>
+        <group>
+          <filter name="group_category" string="Category" context="{'group_by': 'category'}"/>
+        </group>
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_food_item" model="ir.actions.act_window">
+      <field name="name">Food Master</field>
+      <field name="res_model">otm.gym.food.item</field>
+      <field name="view_mode">list,form</field>
+    </record>
+    <record id="view_gym_diet_plan_form" model="ir.ui.view">
+      <field name="name">otm.gym.diet.plan.form</field>
+      <field name="model">otm.gym.diet.plan</field>
+      <field name="arch" type="xml">
+        <form string="Diet Plan">
+          <header>
+        <button name="action_submit" type="object" string="Submit" invisible="state not in ['draft']" class="oe_highlight"/>
+        <button name="action_approve" type="object" string="Approve" invisible="state not in ['review']" class="oe_highlight"/>
+        <button name="%(action_gym_reason_wizard)d" type="action" string="Reject" invisible="state not in ['review']" context="{'default_method': 'action_reject', 'default_res_model': 'otm.gym.diet.plan', 'default_res_id': id}"/>
+        <button name="action_activate" type="object" string="Activate" invisible="state not in ['approved']" class="oe_highlight"/>
+        <button name="action_complete" type="object" string="Complete" invisible="state not in ['active']" class="oe_highlight"/>
+        <button name="action_archive" type="object" string="Archive" invisible="state not in ['completed']"/>
+        <button name="action_new_version" type="object" string="New version" invisible="state not in ['approved','active','completed','archived']"/>
+        <field name="state" widget="statusbar" statusbar_visible="draft,review,approved,active,completed,archived"/>
+          </header>
+          <sheet>
+            
+            <div class="oe_title"><h1><field name="name"/></h1></div>
+            <group name="main_cols">
+            <group name="who">
+              <field name="name"/>
+              <field name="member_id"/>
+              <field name="nutritionist_id"/>
+              <field name="trainer_id"/>
+              <field name="goal"/>
+            </group>
+            <group name="when">
+              <field name="start_date"/>
+              <field name="end_date"/>
+              <field name="version"/>
+              <field name="parent_id"/>
+            </group>
+          </group>
+            <notebook name="gym_notebook">
+            <page name="meals_page" string="Meals">
+              <field name="line_ids"><list editable="bottom"><field name="meal_type"/><field name="sequence"/><field name="food_id"/><field name="quantity"/><field name="calories"/><field name="protein"/><field name="carbs"/><field name="fat"/><field name="notes"/></list></field>
+            </page>
+            <page name="targets_page" string="Targets vs plan">
+              <group name="tg"><group name="tg_t"><field name="calories_target"/><field name="protein_target"/><field name="carb_target"/><field name="fat_target"/><field name="water_target"/></group><group name="tg_p"><field name="calories_total"/><field name="protein_total"/><field name="carb_total"/><field name="fat_total"/></group></group>
+            </page>
+            <page name="notes_page" string="Notes">
+              <field name="notes"/>
+            </page>
+          </notebook>
+          </sheet>
+          <chatter/>
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_diet_plan_list" model="ir.ui.view">
+      <field name="name">otm.gym.diet.plan.list</field>
+      <field name="model">otm.gym.diet.plan</field>
+      <field name="arch" type="xml">
+        <list string="Diet Plans" decoration-success="state == 'active'" decoration-muted="state == 'archived'">
+        <field name="name"/>
+        <field name="member_id"/>
+        <field name="nutritionist_id"/>
+        <field name="version"/>
+        <field name="calories_target"/>
+        <field name="calories_total"/>
+        <field name="end_date"/>
+        <field name="state"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_diet_plan_search" model="ir.ui.view">
+      <field name="name">otm.gym.diet.plan.search</field>
+      <field name="model">otm.gym.diet.plan</field>
+      <field name="arch" type="xml">
+        <search string="Diet Plans">
+        <field name="name"/>
+        <field name="member_id"/>
+        <field name="nutritionist_id"/>
+        <filter name="active_f" string="Active" domain="[('state','=','active')]"/>
+        <filter name="review_f" string="In review" domain="[('state','=','review')]"/>
+        <separator/>
+        <group>
+          <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+        </group>
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_diet_plan" model="ir.actions.act_window">
+      <field name="name">Diet Plans</field>
+      <field name="res_model">otm.gym.diet.plan</field>
+      <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="1">
+    <!-- Odoo is the final security authority: every rule below is enforced on direct RPC calls too. -->
+    <record id="rule_member_staff" model="ir.rule">
+      <field name="name">Gym otm.gym.member - staff</field>
+      <field name="model_id" ref="model_otm_gym_member"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_reception')), Command.link(ref('group_gym_finance')), Command.link(ref('group_gym_assessor')), Command.link(ref('group_gym_manager'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_member_trainer" model="ir.rule">
+      <field name="name">Gym otm.gym.member - trainer</field>
+      <field name="model_id" ref="model_otm_gym_member"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_trainer'))]"/>
+      <field name="domain_force">[('trainer_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_member_nutritionist" model="ir.rule">
+      <field name="name">Gym otm.gym.member - nutritionist</field>
+      <field name="model_id" ref="model_otm_gym_member"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_nutritionist'))]"/>
+      <field name="domain_force">[('nutritionist_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_member_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.member - customer</field>
+      <field name="model_id" ref="model_otm_gym_member"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_membership_all" model="ir.rule">
+      <field name="name">Gym otm.gym.membership - all</field>
+      <field name="model_id" ref="model_otm_gym_membership"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_reception')), Command.link(ref('group_gym_finance')), Command.link(ref('group_gym_manager'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_membership_trainer" model="ir.rule">
+      <field name="name">Gym otm.gym.membership - trainer</field>
+      <field name="model_id" ref="model_otm_gym_membership"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_trainer'))]"/>
+      <field name="domain_force">[('member_id.trainer_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_membership_nutritionist" model="ir.rule">
+      <field name="name">Gym otm.gym.membership - nutritionist</field>
+      <field name="model_id" ref="model_otm_gym_membership"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_nutritionist'))]"/>
+      <field name="domain_force">[('member_id.nutritionist_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_membership_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.membership - customer</field>
+      <field name="model_id" ref="model_otm_gym_membership"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('member_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_trainer_staff" model="ir.rule">
+      <field name="name">Gym otm.gym.trainer - staff</field>
+      <field name="model_id" ref="model_otm_gym_trainer"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_reception')), Command.link(ref('group_gym_trainer')), Command.link(ref('group_gym_nutritionist')), Command.link(ref('group_gym_assessor')), Command.link(ref('group_gym_finance')), Command.link(ref('group_gym_manager'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_trainer_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.trainer - customer</field>
+      <field name="model_id" ref="model_otm_gym_trainer"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('member_ids.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_health_profile_all" model="ir.rule">
+      <field name="name">Gym otm.gym.health.profile - all</field>
+      <field name="model_id" ref="model_otm_gym_health_profile"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_manager'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_health_profile_trainer" model="ir.rule">
+      <field name="name">Gym otm.gym.health.profile - trainer</field>
+      <field name="model_id" ref="model_otm_gym_health_profile"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_trainer'))]"/>
+      <field name="domain_force">[('member_id.trainer_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_health_profile_nutritionist" model="ir.rule">
+      <field name="name">Gym otm.gym.health.profile - nutritionist</field>
+      <field name="model_id" ref="model_otm_gym_health_profile"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_nutritionist'))]"/>
+      <field name="domain_force">[('member_id.nutritionist_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_health_profile_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.health.profile - customer</field>
+      <field name="model_id" ref="model_otm_gym_health_profile"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('member_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_assessment_all" model="ir.rule">
+      <field name="name">Gym otm.gym.assessment - all</field>
+      <field name="model_id" ref="model_otm_gym_assessment"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_manager')), Command.link(ref('group_gym_assessor'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_assessment_trainer" model="ir.rule">
+      <field name="name">Gym otm.gym.assessment - trainer</field>
+      <field name="model_id" ref="model_otm_gym_assessment"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_trainer'))]"/>
+      <field name="domain_force">[('member_id.trainer_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_assessment_nutritionist" model="ir.rule">
+      <field name="name">Gym otm.gym.assessment - nutritionist</field>
+      <field name="model_id" ref="model_otm_gym_assessment"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_nutritionist'))]"/>
+      <field name="domain_force">[('member_id.nutritionist_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_assessment_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.assessment - customer</field>
+      <field name="model_id" ref="model_otm_gym_assessment"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('member_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_assessment_line_all" model="ir.rule">
+      <field name="name">Gym otm.gym.assessment.line - all</field>
+      <field name="model_id" ref="model_otm_gym_assessment_line"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_manager')), Command.link(ref('group_gym_assessor'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_assessment_line_trainer" model="ir.rule">
+      <field name="name">Gym otm.gym.assessment.line - trainer</field>
+      <field name="model_id" ref="model_otm_gym_assessment_line"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_trainer'))]"/>
+      <field name="domain_force">[('assessment_id.member_id.trainer_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_assessment_line_nutritionist" model="ir.rule">
+      <field name="name">Gym otm.gym.assessment.line - nutritionist</field>
+      <field name="model_id" ref="model_otm_gym_assessment_line"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_nutritionist'))]"/>
+      <field name="domain_force">[('assessment_id.member_id.nutritionist_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_assessment_line_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.assessment.line - customer</field>
+      <field name="model_id" ref="model_otm_gym_assessment_line"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('assessment_id.member_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_progress_all" model="ir.rule">
+      <field name="name">Gym otm.gym.progress - all</field>
+      <field name="model_id" ref="model_otm_gym_progress"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_manager')), Command.link(ref('group_gym_assessor'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_progress_trainer" model="ir.rule">
+      <field name="name">Gym otm.gym.progress - trainer</field>
+      <field name="model_id" ref="model_otm_gym_progress"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_trainer'))]"/>
+      <field name="domain_force">[('member_id.trainer_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_progress_nutritionist" model="ir.rule">
+      <field name="name">Gym otm.gym.progress - nutritionist</field>
+      <field name="model_id" ref="model_otm_gym_progress"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_nutritionist'))]"/>
+      <field name="domain_force">[('member_id.nutritionist_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_progress_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.progress - customer</field>
+      <field name="model_id" ref="model_otm_gym_progress"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('member_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_workout_plan_all" model="ir.rule">
+      <field name="name">Gym otm.gym.workout.plan - all</field>
+      <field name="model_id" ref="model_otm_gym_workout_plan"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_manager'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_workout_plan_trainer" model="ir.rule">
+      <field name="name">Gym otm.gym.workout.plan - trainer</field>
+      <field name="model_id" ref="model_otm_gym_workout_plan"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_trainer'))]"/>
+      <field name="domain_force">['|', ('trainer_id.user_id', '=', user.id), ('member_id.trainer_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_workout_plan_nutritionist" model="ir.rule">
+      <field name="name">Gym otm.gym.workout.plan - nutritionist</field>
+      <field name="model_id" ref="model_otm_gym_workout_plan"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_nutritionist'))]"/>
+      <field name="domain_force">[('member_id.nutritionist_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_workout_plan_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.workout.plan - customer</field>
+      <field name="model_id" ref="model_otm_gym_workout_plan"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('member_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_workout_plan_line_all" model="ir.rule">
+      <field name="name">Gym otm.gym.workout.plan.line - all</field>
+      <field name="model_id" ref="model_otm_gym_workout_plan_line"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_manager'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_workout_plan_line_trainer" model="ir.rule">
+      <field name="name">Gym otm.gym.workout.plan.line - trainer</field>
+      <field name="model_id" ref="model_otm_gym_workout_plan_line"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_trainer'))]"/>
+      <field name="domain_force">['|', ('plan_id.trainer_id.user_id', '=', user.id), ('member_id.trainer_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_workout_plan_line_nutritionist" model="ir.rule">
+      <field name="name">Gym otm.gym.workout.plan.line - nutritionist</field>
+      <field name="model_id" ref="model_otm_gym_workout_plan_line"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_nutritionist'))]"/>
+      <field name="domain_force">[('member_id.nutritionist_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_workout_plan_line_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.workout.plan.line - customer</field>
+      <field name="model_id" ref="model_otm_gym_workout_plan_line"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('member_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_diet_plan_all" model="ir.rule">
+      <field name="name">Gym otm.gym.diet.plan - all</field>
+      <field name="model_id" ref="model_otm_gym_diet_plan"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_manager'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_diet_plan_trainer" model="ir.rule">
+      <field name="name">Gym otm.gym.diet.plan - trainer</field>
+      <field name="model_id" ref="model_otm_gym_diet_plan"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_trainer'))]"/>
+      <field name="domain_force">[('member_id.trainer_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_diet_plan_nutritionist" model="ir.rule">
+      <field name="name">Gym otm.gym.diet.plan - nutritionist</field>
+      <field name="model_id" ref="model_otm_gym_diet_plan"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_nutritionist'))]"/>
+      <field name="domain_force">['|', ('nutritionist_id', '=', user.id), ('member_id.nutritionist_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_diet_plan_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.diet.plan - customer</field>
+      <field name="model_id" ref="model_otm_gym_diet_plan"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('member_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_diet_plan_line_all" model="ir.rule">
+      <field name="name">Gym otm.gym.diet.plan.line - all</field>
+      <field name="model_id" ref="model_otm_gym_diet_plan_line"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_manager'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_diet_plan_line_trainer" model="ir.rule">
+      <field name="name">Gym otm.gym.diet.plan.line - trainer</field>
+      <field name="model_id" ref="model_otm_gym_diet_plan_line"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_trainer'))]"/>
+      <field name="domain_force">[('member_id.trainer_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_diet_plan_line_nutritionist" model="ir.rule">
+      <field name="name">Gym otm.gym.diet.plan.line - nutritionist</field>
+      <field name="model_id" ref="model_otm_gym_diet_plan_line"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_nutritionist'))]"/>
+      <field name="domain_force">['|', ('plan_id.nutritionist_id', '=', user.id), ('member_id.nutritionist_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_diet_plan_line_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.diet.plan.line - customer</field>
+      <field name="model_id" ref="model_otm_gym_diet_plan_line"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('member_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_attendance_all" model="ir.rule">
+      <field name="name">Gym otm.gym.attendance - all</field>
+      <field name="model_id" ref="model_otm_gym_attendance"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_reception')), Command.link(ref('group_gym_manager'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_attendance_trainer" model="ir.rule">
+      <field name="name">Gym otm.gym.attendance - trainer</field>
+      <field name="model_id" ref="model_otm_gym_attendance"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_trainer'))]"/>
+      <field name="domain_force">[('member_id.trainer_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_attendance_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.attendance - customer</field>
+      <field name="model_id" ref="model_otm_gym_attendance"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('member_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_appointment_all" model="ir.rule">
+      <field name="name">Gym otm.gym.appointment - all</field>
+      <field name="model_id" ref="model_otm_gym_appointment"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_reception')), Command.link(ref('group_gym_manager'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_appointment_staff" model="ir.rule">
+      <field name="name">Gym otm.gym.appointment - staff</field>
+      <field name="model_id" ref="model_otm_gym_appointment"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_trainer')), Command.link(ref('group_gym_nutritionist')), Command.link(ref('group_gym_assessor'))]"/>
+      <field name="domain_force">['|', ('trainer_id.user_id', '=', user.id), ('member_id.trainer_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_appointment_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.appointment - customer</field>
+      <field name="model_id" ref="model_otm_gym_appointment"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('member_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_payment_all" model="ir.rule">
+      <field name="name">Gym otm.gym.payment - all</field>
+      <field name="model_id" ref="model_otm_gym_payment"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_reception')), Command.link(ref('group_gym_finance')), Command.link(ref('group_gym_manager'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_payment_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.payment - customer</field>
+      <field name="model_id" ref="model_otm_gym_payment"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('member_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_payment_receipt_all" model="ir.rule">
+      <field name="name">Gym otm.gym.payment.receipt - all</field>
+      <field name="model_id" ref="model_otm_gym_payment_receipt"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_reception')), Command.link(ref('group_gym_finance')), Command.link(ref('group_gym_manager'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_payment_receipt_customer" model="ir.rule">
+      <field name="name">Gym otm.gym.payment.receipt - customer</field>
+      <field name="model_id" ref="model_otm_gym_payment_receipt"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_customer'))]"/>
+      <field name="domain_force">[('member_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_history_manager" model="ir.rule">
+      <field name="name">Gym otm.gym.history - manager</field>
+      <field name="model_id" ref="model_otm_gym_history"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_manager'))]"/>
+      <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+    <record id="rule_history_nonhealth" model="ir.rule">
+      <field name="name">Gym otm.gym.history - nonhealth</field>
+      <field name="model_id" ref="model_otm_gym_history"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_reception')), Command.link(ref('group_gym_finance'))]"/>
+      <field name="domain_force">[('sensitive', '=', False)]</field>
+    </record>
+    <record id="rule_history_assessor" model="ir.rule">
+      <field name="name">Gym otm.gym.history - assessor</field>
+      <field name="model_id" ref="model_otm_gym_history"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_assessor'))]"/>
+      <field name="domain_force">['|', ('sensitive', '=', False), ('res_model', '=', 'otm.gym.assessment')]</field>
+    </record>
+    <record id="rule_history_trainer" model="ir.rule">
+      <field name="name">Gym otm.gym.history - trainer</field>
+      <field name="model_id" ref="model_otm_gym_history"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_trainer'))]"/>
+      <field name="domain_force">['|', ('member_id', '=', False), ('member_id.trainer_id.user_id', '=', user.id)]</field>
+    </record>
+    <record id="rule_history_nutritionist" model="ir.rule">
+      <field name="name">Gym otm.gym.history - nutritionist</field>
+      <field name="model_id" ref="model_otm_gym_history"/>
+      <field name="groups" eval="[Command.link(ref('group_gym_nutritionist'))]"/>
+      <field name="domain_force">['|', ('member_id', '=', False), ('member_id.nutritionist_id', '=', user.id)]</field>
+    </record>
+  </data>
+</odoo>

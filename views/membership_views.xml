@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gym_membership_form" model="ir.ui.view">
+      <field name="name">otm.gym.membership.form</field>
+      <field name="model">otm.gym.membership</field>
+      <field name="arch" type="xml">
+        <form string="Membership">
+          <header>
+        <button name="action_confirm" type="object" string="Confirm" invisible="state not in ['draft']" class="oe_highlight"/>
+        <button name="action_activate" type="object" string="Activate" invisible="state not in ['confirmed']" class="oe_highlight"/>
+        <button name="%(action_gym_reason_wizard)d" type="action" string="Freeze" invisible="state not in ['active']" context="{'default_method': 'action_freeze', 'default_res_model': 'otm.gym.membership', 'default_res_id': id}"/>
+        <button name="action_unfreeze" type="object" string="Unfreeze" invisible="state not in ['frozen']"/>
+        <button name="action_expire" type="object" string="Expire" invisible="state not in ['active', 'renewal_pending']"/>
+        <button name="action_start_renewal" type="object" string="Start Renewal" invisible="state not in ['active', 'expired']"/>
+        <button name="action_mark_contacted" type="object" string="Mark Contacted" invisible="state not in ['active', 'expired', 'renewal_pending']"/>
+        <button name="action_renew" type="object" string="Renew" invisible="state not in ['active', 'expired', 'renewal_pending']"/>
+        <button name="%(action_gym_reason_wizard)d" type="action" string="Cancel" invisible="state not in ['draft', 'confirmed', 'active']" context="{'default_method': 'action_cancel', 'default_res_model': 'otm.gym.membership', 'default_res_id': id}"/>
+        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,active,frozen,expired,renewal_pending,renewed,cancelled"/>
+          </header>
+          <sheet>
+            
+            <div class="oe_title"><h1><field name="name"/></h1></div>
+            <group name="main_cols">
+            <group name="plan">
+              <field name="name"/>
+              <field name="member_id"/>
+              <field name="plan_id"/>
+              <field name="trainer_id"/>
+              <field name="start_date"/>
+              <field name="end_date"/>
+              <field name="days_left"/>
+            </group>
+            <group name="money">
+              <field name="amount"/>
+              <field name="discount"/>
+              <field name="final_amount"/>
+              <field name="payment_status"/>
+              <field name="renewal_date"/>
+              <field name="renewal_stage"/>
+              <field name="currency_id"/>
+            </group>
+          </group>
+            <notebook name="gym_notebook">
+            <page name="payments_page" string="Payments">
+              <field name="payment_ids" readonly="1"><list><field name="name"/><field name="amount"/><field name="paid_amount"/><field name="balance"/><field name="due_date"/><field name="state"/></list></field>
+            </page>
+            <page name="freeze_page" string="Freeze">
+              <group name="freeze_group"><field name="freeze_days_requested" invisible="state != 'active'"/><field name="freeze_start"/><field name="freeze_end"/><field name="freeze_reason"/><field name="freeze_days_used"/><field name="freeze_extension_days"/></group>
+            </page>
+            <page name="renewal_page" string="Renewal">
+              <group name="renew_group"><field name="renewal_of_id"/><field name="included_sessions"/></group><field name="renewed_by_ids" readonly="1"><list><field name="name"/><field name="start_date"/><field name="state"/></list></field>
+            </page>
+          </notebook>
+          </sheet>
+          <chatter/>
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_membership_list" model="ir.ui.view">
+      <field name="name">otm.gym.membership.list</field>
+      <field name="model">otm.gym.membership</field>
+      <field name="arch" type="xml">
+        <list string="Memberships" decoration-success="state == 'active'" decoration-warning="state in ('renewal_pending','frozen')" decoration-danger="state == 'expired'" decoration-muted="state == 'cancelled'">
+        <field name="name"/>
+        <field name="member_id"/>
+        <field name="plan_id"/>
+        <field name="start_date"/>
+        <field name="end_date"/>
+        <field name="final_amount"/>
+        <field name="payment_status"/>
+        <field name="renewal_stage"/>
+        <field name="state"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_membership_search" model="ir.ui.view">
+      <field name="name">otm.gym.membership.search</field>
+      <field name="model">otm.gym.membership</field>
+      <field name="arch" type="xml">
+        <search string="Memberships">
+        <field name="name"/>
+        <field name="member_id"/>
+        <field name="plan_id"/>
+        <filter name="active_f" string="Active" domain="[('state','=','active')]"/>
+        <filter name="expiring_f" string="Expiring (30 days)" domain="[('state','in',['active','renewal_pending']),('end_date','&lt;=',(context_today()+datetime.timedelta(days=30)).strftime('%Y-%m-%d'))]"/>
+        <filter name="expired_f" string="Expired" domain="[('state','=','expired')]"/>
+        <filter name="unpaid_f" string="Unpaid" domain="[('payment_status','in',['pending','requested','partial'])]"/>
+        <separator/>
+        <group>
+          <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+          <filter name="group_plan_id" string="Plan" context="{'group_by': 'plan_id'}"/>
+          <filter name="group_payment_status" string="Payment" context="{'group_by': 'payment_status'}"/>
+        </group>
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_membership" model="ir.actions.act_window">
+      <field name="name">Memberships</field>
+      <field name="res_model">otm.gym.membership</field>
+      <field name="view_mode">list,form</field>
+    </record>
+</odoo>

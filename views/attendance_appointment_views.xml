@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gym_attendance_form" model="ir.ui.view">
+      <field name="name">otm.gym.attendance.form</field>
+      <field name="model">otm.gym.attendance</field>
+      <field name="arch" type="xml">
+        <form string="Attendance">
+          <header>
+        <button name="action_check_out" type="object" string="Check Out" invisible="state not in ['present']" class="oe_highlight"/>
+        <button name="action_mark_absent" type="object" string="Mark Absent" invisible="state not in ['expected']"/>
+        <field name="state" widget="statusbar" statusbar_visible="expected,present,checked_out,absent"/>
+          </header>
+          <sheet>
+            
+            
+            <group name="main_cols">
+            <group name="who">
+              <field name="member_id"/>
+              <field name="trainer_id"/>
+              <field name="source"/>
+              <field name="membership_id"/>
+            </group>
+            <group name="when">
+              <field name="date"/>
+              <field name="check_in"/>
+              <field name="check_out"/>
+              <field name="duration"/>
+              <field name="notes"/>
+            </group>
+          </group>
+            
+          </sheet>
+          
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_attendance_list" model="ir.ui.view">
+      <field name="name">otm.gym.attendance.list</field>
+      <field name="model">otm.gym.attendance</field>
+      <field name="arch" type="xml">
+        <list string="Attendance" decoration-success="state == 'present'" decoration-muted="state == 'absent'">
+        <field name="member_id"/>
+        <field name="date"/>
+        <field name="check_in"/>
+        <field name="check_out"/>
+        <field name="duration"/>
+        <field name="trainer_id"/>
+        <field name="source"/>
+        <field name="state"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_attendance_search" model="ir.ui.view">
+      <field name="name">otm.gym.attendance.search</field>
+      <field name="model">otm.gym.attendance</field>
+      <field name="arch" type="xml">
+        <search string="Attendance">
+        <field name="member_id"/>
+        <field name="trainer_id"/>
+        <filter name="inside_f" string="Currently inside" domain="[('state','=','present')]"/>
+        <filter name="today_f" string="Today" domain="[('date','=',context_today().strftime('%Y-%m-%d'))]"/>
+        <separator/>
+        <group>
+          <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+          <filter name="group_source" string="Source" context="{'group_by': 'source'}"/>
+          <filter name="group_date" string="Date" context="{'group_by': 'date'}"/>
+        </group>
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_attendance" model="ir.actions.act_window">
+      <field name="name">Attendance</field>
+      <field name="res_model">otm.gym.attendance</field>
+      <field name="view_mode">list,form</field>
+    </record>
+    <record id="view_gym_appointment_form" model="ir.ui.view">
+      <field name="name">otm.gym.appointment.form</field>
+      <field name="model">otm.gym.appointment</field>
+      <field name="arch" type="xml">
+        <form string="Appointment">
+          <header>
+        <button name="action_confirm" type="object" string="Confirm" invisible="state not in ['scheduled']" class="oe_highlight"/>
+        <button name="action_start" type="object" string="Start" invisible="state not in ['scheduled', 'confirmed']"/>
+        <button name="action_complete" type="object" string="Complete" invisible="state not in ['confirmed', 'in_progress']" class="oe_highlight"/>
+        <button name="%(action_gym_reason_wizard)d" type="action" string="Cancel" invisible="state not in ['scheduled', 'confirmed']" context="{'default_method': 'action_cancel', 'default_res_model': 'otm.gym.appointment', 'default_res_id': id}"/>
+        <button name="%(action_gym_reason_wizard)d" type="action" string="No Show" invisible="state not in ['scheduled', 'confirmed']" context="{'default_method': 'action_no_show', 'default_res_model': 'otm.gym.appointment', 'default_res_id': id}"/>
+        <button name="action_create_assessment" type="object" string="Start assessment" invisible="appointment_type != 'assessment' or state not in ['confirmed','in_progress']"/>
+        <field name="state" widget="statusbar" statusbar_visible="scheduled,confirmed,in_progress,completed,cancelled,no_show"/>
+          </header>
+          <sheet>
+            
+            <div class="oe_title"><h1><field name="name"/></h1></div>
+            <group name="main_cols">
+            <group name="who">
+              <field name="name"/>
+              <field name="member_id"/>
+              <field name="trainer_id"/>
+              <field name="appointment_type"/>
+            </group>
+            <group name="when">
+              <field name="start_datetime"/>
+              <field name="duration_minutes"/>
+              <field name="stop_datetime"/>
+              <field name="payment_id"/>
+              <field name="assessment_id"/>
+            </group>
+          </group>
+            <notebook name="gym_notebook">
+            <page name="notes_page" string="Notes">
+              <field name="notes"/>
+            </page>
+          </notebook>
+          </sheet>
+          <chatter/>
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_appointment_list" model="ir.ui.view">
+      <field name="name">otm.gym.appointment.list</field>
+      <field name="model">otm.gym.appointment</field>
+      <field name="arch" type="xml">
+        <list string="Appointments" decoration-success="state == 'completed'" decoration-danger="state in ('cancelled','no_show')">
+        <field name="name"/>
+        <field name="start_datetime"/>
+        <field name="member_id"/>
+        <field name="trainer_id"/>
+        <field name="appointment_type"/>
+        <field name="state"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_appointment_search" model="ir.ui.view">
+      <field name="name">otm.gym.appointment.search</field>
+      <field name="model">otm.gym.appointment</field>
+      <field name="arch" type="xml">
+        <search string="Appointments">
+        <field name="name"/>
+        <field name="member_id"/>
+        <field name="trainer_id"/>
+        <filter name="today_f" string="Today" domain="[('date','=',context_today().strftime('%Y-%m-%d'))]"/>
+        <filter name="open_f" string="Open" domain="[('state','in',['scheduled','confirmed','in_progress'])]"/>
+        <separator/>
+        <group>
+          <filter name="group_trainer_id" string="Trainer" context="{'group_by': 'trainer_id'}"/>
+          <filter name="group_appointment_type" string="Type" context="{'group_by': 'appointment_type'}"/>
+          <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+        </group>
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_appointment" model="ir.actions.act_window">
+      <field name="name">Appointments</field>
+      <field name="res_model">otm.gym.appointment</field>
+      <field name="view_mode">list,form</field>
+    </record>
+</odoo>

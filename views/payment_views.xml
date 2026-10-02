@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_gym_payment_form" model="ir.ui.view">
+      <field name="name">otm.gym.payment.form</field>
+      <field name="model">otm.gym.payment</field>
+      <field name="arch" type="xml">
+        <form string="Payment">
+          <header>
+        <button name="action_request" type="object" string="Request" invisible="state not in ['pending']" class="oe_highlight"/>
+        <button name="action_confirm_payment" type="object" string="Confirm Payment" invisible="state not in ['pending', 'requested', 'partial']" class="oe_highlight"/>
+        <button name="%(action_gym_reason_wizard)d" type="action" string="Refund" invisible="state not in ['partial', 'paid']" context="{'default_method': 'action_refund', 'default_res_model': 'otm.gym.payment', 'default_res_id': id}"/>
+        <button name="%(action_gym_reason_wizard)d" type="action" string="Cancel" invisible="state not in ['pending', 'requested']" context="{'default_method': 'action_cancel', 'default_res_model': 'otm.gym.payment', 'default_res_id': id}"/>
+        <field name="state" widget="statusbar" statusbar_visible="pending,requested,partial,paid,cancelled"/>
+          </header>
+          <sheet>
+            
+            <div class="oe_title"><h1><field name="name"/></h1></div>
+            <group name="main_cols">
+            <group name="who">
+              <field name="name"/>
+              <field name="member_id"/>
+              <field name="membership_id"/>
+              <field name="kind"/>
+              <field name="description"/>
+            </group>
+            <group name="amounts">
+              <field name="amount"/>
+              <field name="discount"/>
+              <field name="paid_amount"/>
+              <field name="balance"/>
+              <field name="refund_amount"/>
+              <field name="due_date"/>
+              <field name="currency_id"/>
+            </group>
+          </group>
+            <notebook name="gym_notebook">
+            <page name="receive_page" string="Receive / refund (Finance)">
+              <group name="receive_group"><group name="rcv_in"><field name="receive_amount"/><field name="receive_method"/><field name="receive_reference"/><field name="receive_date"/></group><group name="rcv_refund"><field name="refund_amount_input"/></group></group>
+            </page>
+            <page name="receipts_page" string="Receipts">
+              <field name="receipt_ids" readonly="1"><list><field name="date"/><field name="kind"/><field name="amount"/><field name="method"/><field name="reference"/><field name="confirmed_by_id"/><field name="account_payment_id"/></list></field>
+            </page>
+            <page name="acc_page" string="Accounting">
+              <group name="acc_group"><field name="move_id"/><field name="accounting_note"/></group>
+            </page>
+          </notebook>
+          </sheet>
+          <chatter/>
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_payment_list" model="ir.ui.view">
+      <field name="name">otm.gym.payment.list</field>
+      <field name="model">otm.gym.payment</field>
+      <field name="arch" type="xml">
+        <list string="Payments" decoration-success="state == 'paid'" decoration-warning="state in ('requested','partial')" decoration-muted="state == 'cancelled'">
+        <field name="name"/>
+        <field name="member_id"/>
+        <field name="kind"/>
+        <field name="amount"/>
+        <field name="paid_amount"/>
+        <field name="balance"/>
+        <field name="due_date"/>
+        <field name="state"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_payment_search" model="ir.ui.view">
+      <field name="name">otm.gym.payment.search</field>
+      <field name="model">otm.gym.payment</field>
+      <field name="arch" type="xml">
+        <search string="Payments">
+        <field name="name"/>
+        <field name="member_id"/>
+        <filter name="open_f" string="Outstanding" domain="[('state','in',['pending','requested','partial'])]"/>
+        <filter name="paid_f" string="Paid" domain="[('state','=','paid')]"/>
+        <separator/>
+        <group>
+          <filter name="group_state" string="State" context="{'group_by': 'state'}"/>
+          <filter name="group_kind" string="Kind" context="{'group_by': 'kind'}"/>
+          <filter name="group_member_id" string="Member" context="{'group_by': 'member_id'}"/>
+        </group>
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_payment" model="ir.actions.act_window">
+      <field name="name">Payments</field>
+      <field name="res_model">otm.gym.payment</field>
+      <field name="view_mode">list,form</field>
+    </record>
+    <record id="view_gym_payment_receipt_form" model="ir.ui.view">
+      <field name="name">otm.gym.payment.receipt.form</field>
+      <field name="model">otm.gym.payment.receipt</field>
+      <field name="arch" type="xml">
+        <form string="Receipt">
+          <header>
+        
+          </header>
+          <sheet>
+            
+            
+            <group name="main_cols">
+            <group name="a">
+              <field name="payment_id"/>
+              <field name="member_id"/>
+              <field name="kind"/>
+              <field name="amount"/>
+              <field name="date"/>
+            </group>
+            <group name="b">
+              <field name="method"/>
+              <field name="reference"/>
+              <field name="note"/>
+              <field name="confirmed_by_id"/>
+              <field name="account_payment_id"/>
+            </group>
+          </group>
+            
+          </sheet>
+          
+        </form>
+      </field>
+    </record>
+    <record id="view_gym_payment_receipt_list" model="ir.ui.view">
+      <field name="name">otm.gym.payment.receipt.list</field>
+      <field name="model">otm.gym.payment.receipt</field>
+      <field name="arch" type="xml">
+        <list string="Receipts" >
+        <field name="date"/>
+        <field name="payment_id"/>
+        <field name="member_id"/>
+        <field name="kind"/>
+        <field name="amount"/>
+        <field name="method"/>
+        <field name="reference"/>
+        <field name="confirmed_by_id"/>
+        </list>
+      </field>
+    </record>
+    <record id="view_gym_payment_receipt_search" model="ir.ui.view">
+      <field name="name">otm.gym.payment.receipt.search</field>
+      <field name="model">otm.gym.payment.receipt</field>
+      <field name="arch" type="xml">
+        <search string="Receipts">
+        <field name="payment_id"/>
+        <field name="member_id"/>
+        <field name="reference"/>
+        <filter name="refunds" string="Refunds" domain="[('kind','=','refund')]"/>
+        <separator/>
+        <group>
+          <filter name="group_method" string="Method" context="{'group_by': 'method'}"/>
+          <filter name="group_kind" string="Kind" context="{'group_by': 'kind'}"/>
+        </group>
+        </search>
+      </field>
+    </record>
+    <record id="action_gym_payment_receipt" model="ir.actions.act_window">
+      <field name="name">Receipts</field>
+      <field name="res_model">otm.gym.payment.receipt</field>
+      <field name="view_mode">list,form</field>
+    </record>
+</odoo>
