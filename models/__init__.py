@@ -18,3 +18,4 @@ from . import notification
 from . import dashboard
 from . import reports
 from . import cron
+from . import demo

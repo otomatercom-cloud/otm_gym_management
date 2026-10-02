@@ -25,6 +25,7 @@
         "views/payment_views.xml",
         "views/misc_views.xml",
         "views/gym_menus.xml",
+        "views/demo_views.xml",
         "data/gym_cron.xml",
     ],
     "installable": True,
