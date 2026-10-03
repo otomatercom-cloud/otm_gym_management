@@ -117,3 +117,5 @@ access_otm_gym_history_ass,otm.gym.history ass,model_otm_gym_history,group_gym_a
 access_otm_gym_history_fin,otm.gym.history fin,model_otm_gym_history,group_gym_finance,1,0,0,0
 access_otm_gym_history_mgr,otm.gym.history mgr,model_otm_gym_history,group_gym_manager,1,0,0,0
 access_otm_gym_history_adm,otm.gym.history adm,model_otm_gym_history,group_gym_admin,1,0,0,0
+access_otm_gym_site_mgr,otm.gym.site mgr,model_otm_gym_site,group_gym_manager,1,1,1,0
+access_otm_gym_site_image_mgr,otm.gym.site.image mgr,model_otm_gym_site_image,group_gym_manager,1,1,1,1

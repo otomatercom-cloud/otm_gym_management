@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="view_gym_site_form" model="ir.ui.view">
+    <field name="name">otm.gym.site.form</field>
+    <field name="model">otm.gym.site</field>
+    <field name="arch" type="xml">
+      <form string="Website content">
+        <sheet>
+          <group name="brand">
+            <group name="brand_left">
+              <field name="name"/>
+              <field name="tagline"/>
+              <field name="logo" widget="image" options="{'size': [128, 128]}"/>
+            </group>
+            <group name="brand_right">
+              <field name="phone"/>
+              <field name="email"/>
+              <field name="opening_hours"/>
+              <field name="address"/>
+            </group>
+          </group>
+          <notebook name="site_notebook">
+            <page name="hero_page" string="Front page text">
+              <group name="hero_group">
+                <field name="hero_title"/>
+                <field name="hero_subtitle"/>
+                <field name="features"/>
+                <field name="about_text"/>
+              </group>
+            </page>
+            <page name="gallery_page" string="Pictures">
+              <field name="image_ids">
+                <list editable="bottom" default_order="sequence, id">
+                  <field name="sequence" widget="handle"/>
+                  <field name="image" widget="image" options="{'size': [96, 54]}"/>
+                  <field name="name"/>
+                  <field name="active"/>
+                </list>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <record id="action_gym_site" model="ir.actions.server">
+    <field name="name">Website content</field>
+    <field name="model_id" ref="model_otm_gym_site"/>
+    <field name="state">code</field>
+    <field name="code">site = model.get_site()
+action = {'type': 'ir.actions.act_window', 'res_model': 'otm.gym.site', 'res_id': site.id, 'view_mode': 'form', 'target': 'current'}</field>
+  </record>
+  <menuitem id="menu_gym_item_site" name="Website Content" parent="menu_gym_config" action="action_gym_site" sequence="80"
+            groups="otm_gym_management.group_gym_manager,otm_gym_management.group_gym_admin"/>
+</odoo>
